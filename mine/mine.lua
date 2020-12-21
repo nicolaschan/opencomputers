@@ -120,6 +120,7 @@ local function tunnelForward()
   d = d + 1
   clearSide(sides.left)
   if not move(sides.top) then
+    print("Cannot move up")
     return false
   end
   clearSide(sides.left)
@@ -127,9 +128,11 @@ local function tunnelForward()
   move(sides.bottom)
   clearSide(sides.right)
   if not move(sides.front) then
+    print("Cannot move forward")
     return false
   end
   if inventoryFull() then
+    print("inventory full, coming back")
     return false
   end
   purgeItem({"minecraft:cobblestone", "minecraft.dirt"})

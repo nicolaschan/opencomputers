@@ -33,10 +33,22 @@ end
 local function clearSide(side)
   if side == sides.front then
     clearSideRaw(side, robot.swing)
-  else if side == sides.top then
+  elseif side == sides.top then
     clearSideRaw(side, robot.swingUp)
-  else if side == sides.bottom then
+  elseif side == sides.bottom then
     clearSideRaw(side, robot.swingDown)
+  elseif side == sides.left then
+    robot.turnLeft()
+    clearSideRaw(side, robot.swing)
+    robot.turnRight()
+  elseif side == sides.right then
+    robot.turnRight()
+    clearSideRaw(side, robot.swing)
+    robot.turnLeft()
+  elseif side == sides.back then
+    robot.turnAround()
+    clearSideRaw(side, robot.swing)
+    robot.turnAround()
   end
 end
 

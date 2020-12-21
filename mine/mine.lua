@@ -102,6 +102,7 @@ local function tunnelForward()
   clearSide(sides.right)
   move(sides.front)
   purgeItem("minecraft:cobblestone")
+  purgeItem("minecraft:dirt")
   if inventoryFull() then
     return false
   end

@@ -104,6 +104,7 @@ local function tunnelForward()
   purgeItem("minecraft:cobblestone")
   if inventoryFull() then
     return false
+  end
   return true
 end
 

@@ -75,11 +75,20 @@ local function move(side)
   end
 end
 
-local function purgeItem(name)
+local function hasValue(array, value)
+  for i = 1,#array do
+    if value == array[i] then
+      return true
+    end
+  end
+  return false
+end
+
+local function purgeItem(names)
   for slot = 1,robot.inventorySize() do
     local item = component.inventory_controller.getStackInInternalSlot(slot)
     if item then
-      if item.name == name then
+      if hasValue(names, item.name) then
 	robot.select(slot)
 	robot.drop(item.size)
       end
@@ -101,8 +110,7 @@ local function tunnelForward()
   move(sides.bottom)
   clearSide(sides.right)
   move(sides.front)
-  purgeItem("minecraft:cobblestone")
-  purgeItem("minecraft:dirt")
+  purgeItem({"minecraft:cobblestone", "minecraft.dirt"})
   if inventoryFull() then
     return false
   end

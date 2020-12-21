@@ -104,7 +104,7 @@ local function purgeItem(names)
 end
 
 local function inventoryFull()
-  for i = robot.inventorySize(),1,-1 do
+  for slot = robot.inventorySize(),1,-1 do
     local item = component.inventory_controller.getStackInInternalSlot(slot)
     if not item then
       return false

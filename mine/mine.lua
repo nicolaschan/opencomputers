@@ -83,6 +83,8 @@ local function purgeItem(name)
 	robot.select(slot)
 	robot.drop(item.size)
       end
+    else
+      return -- empty slot
     end
   end
 end
@@ -103,6 +105,22 @@ local function tunnelForward()
   return true
 end
 
+local function comeBack()
+  while d > 0 do
+    move(sides.back)
+    d = d - 1
+  end
+end
+
+local function chestInventory()
+  face(sides.back)
+  for i = 1,robot.inventorySize() do
+    robot.select(i)
+    robot.drop()
+  end
+end
+
 repeat until not tunnelForward()
 face(sides.front)
-
+comeBack(distance)
+chestInventory()

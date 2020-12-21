@@ -21,13 +21,25 @@ print("Current energy: " .. computer.energy())
 
 local d = 0
 
+local function clearSide(side)
+  local passable, description = robot.detect(side)
+  while not passable do
+    robot.swing(side)
+  end
+end
+
+local function move(side)
+  clearSide(side)
+  component.robot.move(side)
+end
+
 local function tunnelForward()
-  if d > distance then
+  if d >= distance then
     return false
   end
   d = d + 1
-  robot.swing()
-  robot.forward()
+  move(sides.front)
+  clearSide(sides.top)
   return true
 end
 

@@ -36,8 +36,13 @@ end
 local function face(side)
   local target = sideToNum(side)
   while f ~= target do
-    robot.turnRight()
-    f = (f + 1) % 4
+    if (f + 3) % 4 == target then
+      robot.turnLeft()
+      f = (f + 3) % 4
+    else
+      robot.turnRight()
+      f = (f + 1) % 4
+    end
   end
 end
 

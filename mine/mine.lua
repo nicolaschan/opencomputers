@@ -22,8 +22,8 @@ print("Current energy: " .. computer.energy())
 local d = 0
 
 local function clearSide(side)
-  local passable, description = robot.detect(side)
-  while not passable do
+  local impassable, description = robot.detect(side)
+  while impassable do
     robot.swing(side)
   end
 end

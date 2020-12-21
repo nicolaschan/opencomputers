@@ -21,10 +21,22 @@ print("Current energy: " .. computer.energy())
 
 local d = 0
 
+
+local function clearSideRaw(side, f)
+  local impass, desc = robot.detect(side)
+  while impass do
+    f()
+    impass, desc = robot.detect(side)
+  end
+end
+
 local function clearSide(side)
-  local impassable, description = robot.detect(side)
-  while impassable do
-    robot.swing(side)
+  if side == sides.front then
+    clearSideRaw(side, robot.swing)
+  else if side == sides.top then
+    clearSideRaw(side, robot.swingUp)
+  else if side == sides.bottom then
+    clearSideRaw(side, robot.swingDown)
   end
 end
 

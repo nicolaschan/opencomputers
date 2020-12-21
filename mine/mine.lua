@@ -75,20 +75,34 @@ local function move(side)
   end
 end
 
+local function purgeItem(name)
+  for slot = 1,robot.inventorySize() do
+    local item = component.inventory_controller.getStackInInternalSlot(slot)
+    if item then
+      if item.name == name then
+	robot.select(slot)
+	robot.drop(item.size)
+      end
+    end
+  end
+end
+
 local function tunnelForward()
   if d >= distance then
     return false
   end
   d = d + 1
-  move(sides.front)
   clearSide(sides.left)
   move(sides.top)
   clearSide(sides.left)
   clearSide(sides.right)
   move(sides.bottom)
   clearSide(sides.right)
+  move(sides.front)
+  purgeItem("minecraft:cobblestone")
   return true
 end
 
 repeat until not tunnelForward()
+face(sides.front)
 

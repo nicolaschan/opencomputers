@@ -98,6 +98,16 @@ local function purgeItem(names)
   end
 end
 
+local function inventoryFull()
+  for i = 1,robot.inventorySize() do
+    local item = component.inventory_controller.getStackInInternalSlot(slot)
+    if not item then
+      return false
+    end
+  end
+  return true
+end
+
 local function tunnelForward()
   if d >= distance then
     return false
@@ -130,16 +140,6 @@ local function chestInventory()
     robot.select(i)
     robot.drop()
   end
-end
-
-local function inventoryFull()
-  for i = 1,robot.inventorySize() do
-    local item = component.inventory_controller.getStackInInternalSlot(slot)
-    if not item then
-      return false
-    end
-  end
-  return true
 end
 
 repeat until not tunnelForward()

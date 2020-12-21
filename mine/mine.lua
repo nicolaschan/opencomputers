@@ -99,7 +99,7 @@ local function purgeItem(names)
 end
 
 local function inventoryFull()
-  for i = 1,robot.inventorySize() do
+  for i = robot.inventorySize(),1,-1 do
     local item = component.inventory_controller.getStackInInternalSlot(slot)
     if not item then
       return false
@@ -120,10 +120,10 @@ local function tunnelForward()
   move(sides.bottom)
   clearSide(sides.right)
   move(sides.front)
-  purgeItem({"minecraft:cobblestone", "minecraft.dirt"})
   if inventoryFull() then
     return false
   end
+  purgeItem({"minecraft:cobblestone", "minecraft.dirt"})
   return true
 end
 

@@ -69,6 +69,7 @@ local function clearSide(side)
 end
 
 local function move(side)
+  clearSide(side)
   if side == sides.top or side == sides.bottom then
     local success, desc = component.robot.move(side)
     return success

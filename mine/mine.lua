@@ -154,6 +154,6 @@ local function chestInventory()
 end
 
 repeat until not tunnelForward()
-face(sides.front)
 comeBack(distance)
 chestInventory()
+face(sides.front)

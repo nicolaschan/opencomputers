@@ -71,12 +71,10 @@ end
 local function move(side)
   if side == sides.top or side == sides.bottom then
     local success, desc = component.robot.move(side)
-    if not success then
-      return false
-    end
+    return success
   else
     face(side)
-    robot.forward()
+    return robot.forward()
   end
 end
 

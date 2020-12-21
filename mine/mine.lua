@@ -18,3 +18,18 @@ end
 
 print("tunneling distance")
 print("Current energy: " .. computer.energy())
+
+local d = 0
+
+local function tunnelForward()
+  if d > distance then
+    return false
+  end
+  d = d + 1
+  robot.swing()
+  robot.forward()
+  return true
+end
+
+repeat until not tunnelForward()
+

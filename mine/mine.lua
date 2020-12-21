@@ -102,6 +102,8 @@ local function tunnelForward()
   clearSide(sides.right)
   move(sides.front)
   purgeItem("minecraft:cobblestone")
+  if inventoryFull() then
+    return false
   return true
 end
 
@@ -118,6 +120,16 @@ local function chestInventory()
     robot.select(i)
     robot.drop()
   end
+end
+
+local function inventoryFull()
+  for i = 1,robot.inventorySize() do
+    local item = component.inventory_controller.getStackInInternalSlot(slot)
+    if not item then
+      return false
+    end
+  end
+  return true
 end
 
 repeat until not tunnelForward()

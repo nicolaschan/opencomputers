@@ -48,27 +48,32 @@ end
 
 local function clearSideRaw(side, f, d)
   local impass, desc = d()
-  while impass do
+  local tries = 10
+  while impass and tries > 0 do
     f()
     impass, desc = d()
+    tries = tries - 1
   end
+  return tries > 0
 end
 
 local function clearSide(side)
   if side == sides.top then
-    clearSideRaw(side, robot.swingUp, robot.detectUp)
+    return clearSideRaw(side, robot.swingUp, robot.detectUp)
   elseif side == sides.bottom then
-    clearSideRaw(side, robot.swingDown, robot.detectDown)
+    return clearSideRaw(side, robot.swingDown, robot.detectDown)
   else
     face(side)
-    clearSideRaw(side, robot.swing, robot.detect)
+    return clearSideRaw(side, robot.swing, robot.detect)
   end
 end
 
 local function move(side)
-  clearSide(side)
   if side == sides.top or side == sides.bottom then
-    component.robot.move(side)
+    local success, desc = component.robot.move(side)
+    if not success then
+      return false
+    end
   else
     face(side)
     robot.forward()
@@ -114,12 +119,16 @@ local function tunnelForward()
   end
   d = d + 1
   clearSide(sides.left)
-  move(sides.top)
+  if not move(sides.top) then
+    return false
+  end
   clearSide(sides.left)
   clearSide(sides.right)
   move(sides.bottom)
   clearSide(sides.right)
-  move(sides.front)
+  if not move(sides.front) then
+    return false
+  end
   if inventoryFull() then
     return false
   end

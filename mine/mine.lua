@@ -12,7 +12,7 @@ print(options)
 
 local distance = tonumber(args[1])
 if not distance then
-  io.stdeer:write("invalid distance")
+  io.stderr:write("invalid distance")
   return
 end
 

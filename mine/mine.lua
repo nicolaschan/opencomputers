@@ -116,7 +116,6 @@ local function tunnelForward()
   if d >= distance then
     return false
   end
-  d = d + 1
   clearSide(sides.left)
   if not move(sides.top) then
     print("Cannot move up")
@@ -130,6 +129,7 @@ local function tunnelForward()
     print("Cannot move forward")
     return false
   end
+  d = d + 1
   if inventoryFull() then
     print("inventory full, coming back")
     return false
